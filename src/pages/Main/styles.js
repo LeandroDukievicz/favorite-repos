@@ -39,7 +39,9 @@ export const Form = styled.form`
     }
 `;
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button.attrs({
+    type: 'submit'
+})`
     background-color: #000;
     color: #fff;
     padding: 0 15px;
