@@ -53,7 +53,7 @@ export const SubmitButton = styled.button.attrs(props =>({
     type: 'submit',
     disabled: props.loading,
 
-}))`
+    }))`
     background-color: #000;
     color: #fff;
     padding: 0 15px;
@@ -72,7 +72,40 @@ export const SubmitButton = styled.button.attrs(props =>({
             svg{
                 animation: ${animate} 2s linear infinite;
             }
-        `
+         `
     }
+`;
 
+export const List = styled.ul`
+    width: 650px;
+    padding: 15 0px;
+    margin: 10px;
+    filter: drop-shadow(1px 1px 2px #ddd);
+
+    li{
+        list-style: none;
+        display:flex;
+        padding: 5px;
+        margin:5px;  
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        
+        & + li{
+            border-top: 1px solid #eee;
+        }
+
+        a{
+            color: #0d2636;
+            text-decoration:none;
+        }
+    }
+`;
+
+export const DeleteButton = styled.button.attrs({type:'button'})`
+    color: red;
+    background: transparent;
+    border: none;
+    margin:5px;
+    padding:5px;
 `;
