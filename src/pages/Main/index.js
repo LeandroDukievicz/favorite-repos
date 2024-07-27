@@ -1,30 +1,51 @@
-import React, {useState, useCallback} from 'react'
+import React, {useState, useCallback, useEffect} from 'react'
 import api from '../../services/api'
 import {FaGithub, FaPlus, FaSpinner, FaBars, FaTrash } from 'react-icons/fa'
 import { Title, Container, Form, SubmitButton, List, DeleteButton } from './styles'
  
 export default function Main(){
-    const [NewRepo, setNewRepo] = useState('');
-    const [repositorios, setRepositorios] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [NewRepo, setNewRepo] = useState('')
+    const [repositorios, setRepositorios] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [alert, setAlert] = useState(null)
 
-    function handleinputChange(e){
-        setNewRepo(e.target.value);
-    }
+    useEffect(()=>{
+        const repoStorage = localStorage.getItem('repos');
+        if(repoStorage){
+            setRepositorios(JSON.parse(repoStorage));
+        }
+    }, []);
+
+    useEffect(()=>{
+        localStorage.setItem('repos', JSON.stringify(repositorios));
+    },[repositorios]);
 
     const handleSubmit = useCallback((e)=>{
         e.preventDefault();
 
         async function submit(){
-            setLoading(true);
+            setLoading(true)
+            setAlert(null)
             try{
+                if (NewRepo ===''){
+                    throw new Error('Você precisa indicar um repositório !');
+                }
                 const response = await api.get(`repos/${NewRepo}`);
+
+                const hasRepo = repositorios.find(repo => repo.name ===NewRepo);
+
+                if (hasRepo){
+                    throw new Error('Repositório Duplicado'); 
+                   
+                }
+
                 const data = {
                     name: response.data.full_name,
                 }
                 setRepositorios([...repositorios, data]);
                 setNewRepo('');
             }catch(error){
+                setAlert(true);
                 console.log(error);
             }finally{
                 setLoading(false);
@@ -32,6 +53,17 @@ export default function Main(){
         }
         submit();
     }, [NewRepo, repositorios]);
+
+    function handleinputChange(e){
+        setNewRepo(e.target.value);
+        setAlert(null);
+    }
+
+    const handleDelete = useCallback((repo)=>{
+        alert('Tem certeza que deseja excluir?')
+        const find = repositorios.filter(result => result.name !== repo);
+        setRepositorios(find);
+    },[repositorios]);
 
     return(
         <Container>
@@ -42,7 +74,7 @@ export default function Main(){
                 </h1>                
             </Title>
 
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} error={alert}>
                 <input type="text" placeholder="Adicionar Repositórios"
                 value={NewRepo}
                 onChange={handleinputChange}
@@ -58,12 +90,11 @@ export default function Main(){
                     }
                 </SubmitButton>
             </Form>
-
             <List>
                 {repositorios.map(repo => (
                     <li key={repo.name}>
                         <span>
-                            <DeleteButton>
+                            <DeleteButton onClick={() => handleDelete(repo.name) }>
                                 <FaTrash size={14}/>
                             </DeleteButton>
                             {repo.name}
@@ -74,7 +105,6 @@ export default function Main(){
                     </li>
                 ))}
             </List>
-
         </Container>
     )
 }

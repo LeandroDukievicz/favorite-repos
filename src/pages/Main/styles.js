@@ -34,7 +34,7 @@ export const Form = styled.form`
     input{
         flex:1;
         padding:10px;
-        border: 2px inset #ddd;
+        border: 2px inset ${props =>(props.error ? '#ff0000' : '#ddd')};
         border-end-start-radius: 5px;
     }
 `;
