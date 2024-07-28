@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
 export const Section = styled.section`
-    width: 100%;
+    width: 80%;
     height: auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    border: 1px outset #ddd;
+    border-radius: 15px;
+    margin:0 auto;
+    margin-top: 30px;
+    padding: 20px;
 
 `;
 
