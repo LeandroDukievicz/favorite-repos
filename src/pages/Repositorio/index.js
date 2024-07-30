@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Section, Title, Owner } from './styles';
+import { FaSpinner,FaArrowLeft  } from 'react-icons/fa';
+import { Section, Title, Owner, Wait,BackBtn } from './styles';
 import api from '../../services/api';
 
 export default function Repositorio() {
@@ -36,17 +37,31 @@ export default function Repositorio() {
     load();
   }, [repositorioParam]);
 
-  if (loading) {
-    return <div>Carregando...</div>;
+  if(loading){
+    return(
+      <Wait>
+          <h1>Loading</h1> &nbsp;&nbsp;
+          <FaSpinner size={30}/>
+       </Wait>
+    )
+    
   }
-
+ 
   return (
     <Section>
+
+      <BackBtn to="/">
+        <FaArrowLeft size={30} />
+      </BackBtn>
+      
       <Title>
         {repositorio?.full_name}
       </Title>
+
+      
+
       <Owner>
-        {repositorio && repositorio.owner && (
+          {repositorio && repositorio.owner && (
           <div>
             <img
               src={repositorio.owner.avatar_url}
