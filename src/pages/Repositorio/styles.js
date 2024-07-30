@@ -20,4 +20,29 @@ export const Title = styled.h1`
     filter:drop-shadow(1px 2px 1px #000);
 `;
 
+export const Owner = styled.section`
+    width: 100%;
+    div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+
+img{
+    width: 150px;
+    height:auto;
+    margin: 0 auto;
+    padding:10px;
+    margin:10px;
+    border-radius:15px;
+    filter:drop-shadow(4px 4px 4px #ddd);
+}
+
+p{
+    color:#ddd;
+}
+
+`;
 

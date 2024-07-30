@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Section, Title } from './styles';
+import { Section, Title, Owner } from './styles';
 import api from '../../services/api';
 
 export default function Repositorio() {
   const { repositorio: repositorioParam } = useParams();
-  const [repositorio, setRepositorio] = useState({});
+  const [repositorio, setRepositorio] = useState(null);
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -30,28 +30,32 @@ export default function Repositorio() {
         console.error("Erro ao buscar dados do repositório:", error);
       } finally {
         setLoading(false);
-      }  }
+      }
+    }
+
     load();
   }, [repositorioParam]);
 
-//   if (loading) {
-//     return <p>Loading...</p>;
-//   }
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <Section>
-      <Title>{repositorio.full_name}</Title>
-      {/* <p>{repositorio.description}</p>
-      <h2>Issues</h2>
-      <ul>
-        {issues.map((issue) => (
-          <li key={issue.id}>
-            <a href={issue.html_url} target="_blank" rel="noopener noreferrer">
-              {issue.title}
-            </a>
-          </li>
-        ))}
-      </ul> */}
+      <Title>
+        {repositorio?.full_name}
+      </Title>
+      <Owner>
+        {repositorio && repositorio.owner && (
+          <div>
+            <img
+              src={repositorio.owner.avatar_url}
+              alt={repositorio.owner.login}
+            />
+            <p>{repositorio.description}</p>
+          </div>
+        )}
+      </Owner>
     </Section>
   );
 }
