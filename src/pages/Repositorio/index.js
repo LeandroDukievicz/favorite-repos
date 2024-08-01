@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaSpinner,FaArrowLeft  } from 'react-icons/fa';
-import { Section, Title, Owner, Wait,BackBtn } from './styles';
+import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
+import { Section, Title, Owner, Wait, BackBtn, IssuesList } from './styles';
 import api from '../../services/api';
 
 export default function Repositorio() {
@@ -37,31 +37,25 @@ export default function Repositorio() {
     load();
   }, [repositorioParam]);
 
-  if(loading){
-    return(
+  if (loading) {
+    return (
       <Wait>
-          <h1>Loading</h1> &nbsp;&nbsp;
-          <FaSpinner size={30}/>
-       </Wait>
-    )
-    
+        <h1>Loading</h1> &nbsp;&nbsp;
+        <FaSpinner size={30} />
+      </Wait>
+    );
   }
- 
+
   return (
     <Section>
-
       <BackBtn to="/">
         <FaArrowLeft size={30} />
       </BackBtn>
-      
-      <Title>
-        {repositorio?.full_name}
-      </Title>
 
-      
+      <Title>{repositorio?.full_name}</Title>
 
       <Owner>
-          {repositorio && repositorio.owner && (
+        {repositorio && repositorio.owner && (
           <div>
             <img
               src={repositorio.owner.avatar_url}
@@ -71,6 +65,19 @@ export default function Repositorio() {
           </div>
         )}
       </Owner>
+
+      <IssuesList>
+        {issues.map(issue => (
+          <li key={String(issue.id)}>
+            <img src={issue.user.avatar_url} alt={issue.user.login} />
+            <div>
+              <strong>
+                <a href={issue.html_url}>{issue.title}</a>
+              </strong>
+            </div>
+          </li>
+        ))}
+      </IssuesList>
     </Section>
   );
 }

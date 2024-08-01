@@ -67,3 +67,6 @@ export const BackBtn = styled(Link)`
 
 `;
 
+export const IssuesList = styled.ul``;
+
+
