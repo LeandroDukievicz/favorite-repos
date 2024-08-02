@@ -145,12 +145,42 @@ export const PageActions = styled.div`
         border-radius: 5px;
         letter-spacing: .1rem;
         cursor: pointer;
-
-        }
         
-       
+        &:disabled{
+            cursor:not-allowed;
+            opacity:.3;
+            border:none;
+            box-shadow: 1px cyan;
+        }
+
+        }  
+`;
+
+export const FilterList = styled.div`
+   
+    margin-top: 30px;
+    align-items: center;
+    padding:10px;
+    margin:10px;
+    
+    button{
+        margin:10px;
+        padding:8px;
+        border-radius: 5px;
+        border: 1px inset cyan;
+        box-shadow: 2px 2px 2px cyan;
+        background-color: transparent;
+        color:#ddd;
+        cursor:pointer;
+
+        &:nth-child(${props => props.active +1}){
+            background-color:cyan;
+            color:#000;
+            box-shadow: 2px 2px 2px cyan;
+        }
 
     
+   }
 `;
 
 

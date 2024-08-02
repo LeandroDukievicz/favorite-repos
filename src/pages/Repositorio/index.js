@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FaSpinner, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { Section, Title, Owner, Wait, BackBtn, IssuesList, PageActions } from './styles';
+import { Section, Title, Owner, Wait, BackBtn, IssuesList, PageActions,FilterList } from './styles';
 import api from '../../services/api';
 
 export default function Repositorio() {
@@ -10,6 +10,16 @@ export default function Repositorio() {
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+
+  const [filters, setFilters] = useState([
+    {state: 'all', label:'All Issues', active:true},
+    {state: 'open', label:'Open Issues', active:false},
+    {state: 'closed', label:'Closed Issues', active:false},
+  ]);
+
+  const [filterIndex, setFilterIndex] = useState(0);
+
+
 
   useEffect(() => {
     async function load() {
@@ -20,7 +30,7 @@ export default function Repositorio() {
           api.get(`/repos/${nomeRepo}`),
           api.get(`/repos/${nomeRepo}/issues`, {
             params: {
-              state: 'open',
+              state: filters.find(f=>f.active).state,
               per_page: 5,
               page: 1, // Adicione a página inicial aqui
             },
@@ -45,7 +55,7 @@ export default function Repositorio() {
       try {
         const response = await api.get(`/repos/${nomeRepo}/issues`, {
           params: {
-            state: 'open',
+            state: filters[filterIndex].state,
             per_page: 5,
             page: page, // Adiciona a página atual aqui
           },
@@ -57,10 +67,14 @@ export default function Repositorio() {
     }
 
     loadIssues();
-  }, [repositorioParam, page]); // Adicione `page` como dependência
+  }, [filterIndex,filters,  repositorioParam, page]); // Adicione `page` como dependência
 
   function handlePage(action) {
     setPage(action === 'back' ? page - 1 : page + 1);
+  }
+
+  function handleFilter(index){
+      setFilterIndex(index);
   }
 
   if (loading) {
@@ -91,6 +105,18 @@ export default function Repositorio() {
           </div>
         )}
       </Owner>
+
+      <FilterList active={filterIndex}>
+          {filters.map((filter, index) => (
+              <button
+                type="button"
+                key={filter.label}
+                onClick={()=> handleFilter(index)}
+              >
+                {filter.label}
+              </button>
+          ))}
+      </FilterList>
 
       <IssuesList>
         {issues.map(issue => (
