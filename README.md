@@ -61,6 +61,8 @@ Para executar a aplicação localmente, siga os seguintes passos:
 
 #
 
+**_Nota sobre Responsividade_**: Informamos que este projeto não foi desenvolvido com suporte a responsividade, uma vez que não era o foco principal do estudo e desenvolvimento realizado.
+
 **Licença: **
 Este projeto está licenciado sob a licença MIT. 
 
