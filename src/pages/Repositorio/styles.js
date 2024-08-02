@@ -122,7 +122,35 @@ export const IssuesList = styled.ul`
             box-shadow: 2px 2px 1px cyan;
         }
     }
+`;
 
+export const PageActions = styled.div`
+    width: 70%;
+    display: flex;
+    justify-content: space-between;
+    align-items:center ;
+    padding: 10px;
+    margin: 10px;
+    margin-top: 40px;
+
+    button{
+        padding:8px;
+        margin: 10px;
+        color: #fff;
+        box-shadow: 2px 2px 2px cyan;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        border: 2px inset cyan;
+        border-radius: 5px;
+        letter-spacing: .1rem;
+        cursor: pointer;
+
+        }
+        
+       
+
+    
 `;
 
 

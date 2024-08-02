@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaSpinner, FaArrowLeft } from 'react-icons/fa';
-import { Section, Title, Owner, Wait, BackBtn, IssuesList } from './styles';
+import { FaSpinner, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Section, Title, Owner, Wait, BackBtn, IssuesList, PageActions } from './styles';
 import api from '../../services/api';
 
 export default function Repositorio() {
@@ -9,6 +9,7 @@ export default function Repositorio() {
   const [repositorio, setRepositorio] = useState(null);
   const [issues, setIssues] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     async function load() {
@@ -21,6 +22,7 @@ export default function Repositorio() {
             params: {
               state: 'open',
               per_page: 5,
+              page: 1, // Adicione a página inicial aqui
             },
           }),
         ]);
@@ -36,6 +38,30 @@ export default function Repositorio() {
 
     load();
   }, [repositorioParam]);
+
+  useEffect(() => {
+    async function loadIssues() {
+      const nomeRepo = decodeURIComponent(repositorioParam);
+      try {
+        const response = await api.get(`/repos/${nomeRepo}/issues`, {
+          params: {
+            state: 'open',
+            per_page: 5,
+            page: page, // Adiciona a página atual aqui
+          },
+        });
+        setIssues(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar issues:", error);
+      }
+    }
+
+    loadIssues();
+  }, [repositorioParam, page]); // Adicione `page` como dependência
+
+  function handlePage(action) {
+    setPage(action === 'back' ? page - 1 : page + 1);
+  }
 
   if (loading) {
     return (
@@ -73,8 +99,8 @@ export default function Repositorio() {
             <div>
               <strong>
                 <a href={issue.html_url}>{issue.title}</a>&nbsp;
-                {issue.labels.map(label =>(
-                    <span key={String(label.id)}>{label.name}</span>
+                {issue.labels.map(label => (
+                  <span key={String(label.id)}>{label.name}</span>
                 ))}&nbsp;
               </strong>
               <p>&nbsp;{issue.user.login}</p>
@@ -82,6 +108,24 @@ export default function Repositorio() {
           </li>
         ))}
       </IssuesList>
+
+      <PageActions>
+        <button
+          type="button"
+          onClick={() => handlePage('back')}
+          disabled={page === 1} // Desabilita botão de voltar se estiver na primeira página
+        >
+          &nbsp; &nbsp;
+          <FaChevronLeft size={24} color="cyan" />
+          Voltar&nbsp; &nbsp;
+        </button>
+
+        <button type="button" onClick={() => handlePage('next')}>
+          &nbsp;
+          Próxima
+          <FaChevronRight size={24} color="cyan" />
+        </button>
+      </PageActions>
     </Section>
   );
 }
