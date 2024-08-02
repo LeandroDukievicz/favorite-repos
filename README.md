@@ -74,4 +74,3 @@ Para executar a aplicação localmente, siga os seguintes passos:
 **Licença: **
 Este projeto está licenciado sob a licença MIT. 
 
->>>>>>> 5bc3b8853f78a546b69ca226c23df16c6e7e26cb
