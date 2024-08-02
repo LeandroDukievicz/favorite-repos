@@ -9,11 +9,14 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Instalação](#instalação)
 - [Uso](#uso)
-<<<<<<< HEAD
-- [Contribuição](#contribuição)
-=======
->>>>>>> 5bc3b8853f78a546b69ca226c23df16c6e7e26cb
-- [Licença](#licença)
+
+
+## Screenshot
+
+ <div align="center">
+     <img height="500" src="https://github.com/LeandroDukievicz/favorite-repos/blob/main/public/favorite.gif">
+</div>   
+
 
 ## Visão Geral
 
