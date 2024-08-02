@@ -72,8 +72,12 @@ export default function Repositorio() {
             <img src={issue.user.avatar_url} alt={issue.user.login} />
             <div>
               <strong>
-                <a href={issue.html_url}>{issue.title}</a>
+                <a href={issue.html_url}>{issue.title}</a>&nbsp;
+                {issue.labels.map(label =>(
+                    <span key={String(label.id)}>{label.name}</span>
+                ))}&nbsp;
               </strong>
+              <p>&nbsp;{issue.user.login}</p>
             </div>
           </li>
         ))}

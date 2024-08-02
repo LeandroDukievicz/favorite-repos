@@ -67,6 +67,62 @@ export const BackBtn = styled(Link)`
 
 `;
 
-export const IssuesList = styled.ul``;
+export const IssuesList = styled.ul`
+    margin-top:30px;
+    padding-top:30px;
+    border-top:1px solid #d5d5d5;
+    list-style: none;
+    
+
+    li{
+        display: flex;
+        padding:15px 10px;
+    }
+    img{
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px inset #d5d5d5;
+    }
+    div{
+        flex:1;
+        margin-left:10px;
+
+        p{
+            margin-top: 10px;
+            font-size:12px;
+            color:cyan;
+            letter-spacing: .1rem;
+            text-decoration:overline;
+            padding: 2px;
+        }
+    }
+    strong{
+        font-size: 15px;
+
+        a{
+            text-decoration: none;
+            color:#d5d5d5;
+            transition: 0.5s;
+            &:hover{
+                color: #0071db;
+                font-variant:initial;
+                font-style: italic;
+            }
+        }
+        span{
+            background-color: #333;
+            color:cyan;
+            border-radius: 5px;
+            font-size:14px;
+            font-weight: 700;
+            padding: 5px 8px;
+            margin-left:12px;
+            border: 1px inset cyan;
+            box-shadow: 2px 2px 1px cyan;
+        }
+    }
+
+`;
 
 
