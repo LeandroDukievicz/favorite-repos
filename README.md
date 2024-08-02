@@ -9,7 +9,6 @@
 - [Tecnologias Utilizadas](#tecnologias-utilizadas)
 - [Instalação](#instalação)
 - [Uso](#uso)
-- [Contribuição](#contribuição)
 - [Licença](#licença)
 
 ## Visão Geral
@@ -45,3 +44,23 @@ Para executar a aplicação localmente, siga os seguintes passos:
    ```bash
    git clone https://github.com/seu-usuario/favorite-repos.git
    cd favorite-repos
+2. **Instale as dependências**:
+   ```bash
+   npm install
+
+3. **Inicie a Aplicação**:
+    ```bash
+   npm start
+
+
+
+## Uso
+- 1 **Busca por Repositórios:** Utilize a barra de busca na página inicial para encontrar um repositório do GitHub.
+- 2 **Visualização de Repositórios:** Clique no repositório desejado para ver mais detalhes.
+- 3 **Navegação entre Issues:** Use os botões de navegação para avançar ou retroceder entre as issues abertas do repositório.
+
+#
+
+Licença
+Este projeto está licenciado sob a licença MIT. 
+
