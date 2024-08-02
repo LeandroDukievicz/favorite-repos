@@ -51,8 +51,7 @@ Para executar a aplicação localmente, siga os seguintes passos:
    ```bash
    git clone https://github.com/seu-usuario/favorite-repos.git
    cd favorite-repos
-<<<<<<< HEAD
-=======
+
 2. **Instale as dependências**:
    ```bash
    npm install
